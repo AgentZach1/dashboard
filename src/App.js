@@ -7,6 +7,7 @@ import Services from './components/pages/Services';
 import Playground from './components/pages/Playground';
 import SignUp from './components/pages/SignUp';
 import Protected from './components/pages/Protected';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
          <Route path='/dashboard/sign-up' element={<SignUp />}/>
          <Route path='/dashboard/protected' element={<Protected />}/>
         </Routes>
+        <Footer />
       </Router>
     </>
   );

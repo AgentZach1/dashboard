@@ -12,16 +12,26 @@
   
   .navbar-container {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     height: 80px;
     max-width: 1500px;
   }
   
+  .navbar-text {
+    color: #fff;
+    justify-self: start;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: left;
+
+  }
+
   .navbar-logo {
     color: #fff;
     justify-self: start;
-    margin-left: 20px;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
@@ -76,6 +86,33 @@
     display: none;
   }
   
+  .btn-mobile > button {
+    padding: auto;
+  }
+
+  @media screen and (max-width: 450px) {
+    .navbar-text, .navbar-logo {
+      display: none;
+    }
+
+  }
+
+  @media screen and (max-width: 1250px) {
+    
+    .btn-mobile > button {
+      width: 120%;
+      
+    }
+
+    .btn-mobile {
+      margin-right: 20px;
+    }
+
+    .navbar-text {
+      font-size: 1.3rem;
+    }
+  }
+
   @media screen and (max-width: 960px) {
     .NavbarItems {
       position: relative;
@@ -115,11 +152,18 @@
       border-radius: 0;
     }
   
+    .navbar-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(25%, 90%);
+    }
+
     .navbar-logo {
       position: absolute;
       top: 0;
       left: 0;
-      transform: translate(25%, 50%);
+      transform: translate(700%, 75%);
     }
   
     .menu-icon {
@@ -136,6 +180,8 @@
       color: #fff;
       font-size: 2rem;
     }
+
+    
   
     .nav-links-mobile {
       display: block;

@@ -1,6 +1,7 @@
 import React from 'react';
 import CardItem from './CardItem';
 import './Cards.css';
+import ZachFace from '../images/ZachHeadshot.jpg';
 
 function Cards() {
   return (
@@ -10,36 +11,36 @@ function Cards() {
             <div className='cards__wrapper'>
                 <ul className='cards__items'>
                     <CardItem 
-                    src='/images/ZachHeadshot.jpg' 
+                    src={ZachFace} 
                     text='Link to my butt'
                     label='butt'
-                    path='/butt'
+                    path='/dashboard/butt'
                     />
                     <CardItem 
-                    src='/images/ZachHeadshot.jpg' 
+                    src={ZachFace}  
                     text='Link to something secret'
                     label='secret'
-                    path='/secret'
+                    path='/dashboard/secret'
                     />
                 </ul>
                 <ul className='cards__items'>
                     <CardItem 
-                    src='/images/ZachHeadshot.jpg' 
+                    src={ZachFace} 
                     text='Zach Face llllllllllllllllllllllllllllllllllllllllllllllllllllllllllll'
                     label='Adventure'
-                    path='/services'
+                    path='/dashboard/services'
                     />
                     <CardItem 
-                    src='/images/ZachHeadshot.jpg' 
+                    src={ZachFace} 
                     text='Link to Playground'
                     label='Play'
-                    path='/playground'
+                    path='/dashboard/playground'
                     />
                     <CardItem 
-                    src='/images/ZachHeadshot.jpg' 
+                    src={ZachFace} 
                     text='Link to Protected (only go if you are authenticated)'
                     label='protected'
-                    path='/protected'
+                    path='/dashboard/protected'
                     />
                 </ul>
                 
@@ -49,4 +50,4 @@ function Cards() {
   )
 }
 
-export default Cards
+export default Cards;

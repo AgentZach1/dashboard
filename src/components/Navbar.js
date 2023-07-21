@@ -33,8 +33,11 @@ function Navbar() {
     <>
         <nav className="navbar">
             <div className="navbar-container">
+                <Link to="/dashboard" className="navbar-text" onClick={closeMobileMenu}>
+                    WEISS DASHBOARD
+                </Link>
                 <Link to="/dashboard" className="navbar-logo" onClick={closeMobileMenu}>
-                    WEISS DASHBOARD <FontAwesomeIcon icon={faTypo3} />
+                    <FontAwesomeIcon icon={faTypo3} />
                 </Link>
                 <div className='menu-icon' onClick={handleClick}>
                     <FontAwesomeIcon icon={click ? faTimes : faBars} />
@@ -61,7 +64,7 @@ function Navbar() {
                         </Link>
                     </li>
                 </ul>
-                {button && <Button buttonStyle='btn--outline'>Sign Up</Button>}
+                {button && <Button buttonStyle='btn--outline' toGo='/dashboard/sign-up'>Sign Up</Button>}
             </div>
         </nav>
     </>
