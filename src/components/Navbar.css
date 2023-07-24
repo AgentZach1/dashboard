@@ -1,5 +1,5 @@
 .navbar {
-    background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+    background: url("../images/Horn.png");
     height: 80px;
     display: flex;
     justify-content: center;
@@ -8,8 +8,15 @@
     position: sticky;
     top: 0;
     z-index: 999;
+    transition: transform 0.1s;
   }
   
+.navbar-hide {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
+
+}
+
   .navbar-container {
     display: flex;
     justify-content: right;
@@ -19,7 +26,7 @@
   }
   
   .navbar-text {
-    color: #fff;
+    color: black;
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
@@ -30,7 +37,7 @@
   }
 
   .navbar-logo {
-    color: #fff;
+    color: black;
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
@@ -61,7 +68,7 @@
   }
   
   .nav-links {
-    color: #fff;
+    color: black;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -70,12 +77,12 @@
   }
   
   .nav-links:hover {
-    border-bottom: 4px solid #fff;
+    border-bottom: 4px solid black;
     transition: all 0.2s ease-out;
   }
   
   .fa-bars {
-    color: #fff;
+    color: black;
   }
   
   .nav-links-mobile {
@@ -101,7 +108,6 @@
     
     .btn-mobile > button {
       width: 120%;
-      
     }
 
     .btn-mobile {
@@ -109,7 +115,8 @@
     }
 
     .navbar-text {
-      font-size: 1.3rem;
+      font-size: 0.9em;
+      margin: 5px;
     }
   }
 
@@ -131,7 +138,7 @@
     }
   
     .nav-menu.active {
-      background: #242222;
+      background: url("../images/Horn.png");
       left: 0;
       opacity: 1;
       transition: all 0.5s ease;
@@ -147,8 +154,8 @@
     }
   
     .nav-links:hover {
-      background-color: #fff;
-      color: #242424;
+      background-color: black;
+      color: #d3bc72;
       border-radius: 0;
     }
   
@@ -156,14 +163,15 @@
       position: absolute;
       top: 0;
       left: 0;
-      transform: translate(25%, 90%);
+      transform: translate(0%, 90%);
+      font-size: 1.2em;
     }
 
     .navbar-logo {
       position: absolute;
       top: 0;
       left: 0;
-      transform: translate(700%, 75%);
+      transform: translate(350%, 25%);
     }
   
     .menu-icon {
@@ -177,11 +185,9 @@
     }
   
     .fa-times {
-      color: #fff;
+      color: black;
       font-size: 2rem;
     }
-
-    
   
     .nav-links-mobile {
       display: block;
@@ -192,14 +198,14 @@
       text-decoration: none;
       font-size: 1.5rem;
       background-color: transparent;
-      color: #fff;
+      color: black;
       padding: 14px 20px;
-      border: 1px solid #fff;
+      border: 1px solid black;
       transition: all 0.3s ease-out;
     }
   
     .nav-links-mobile:hover {
-      background: #fff;
+      background: black;
       color: #242424;
       transition: 250ms;
     }

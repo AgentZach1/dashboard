@@ -9,12 +9,21 @@
     background: #111;
 } */
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+}
+
 .graphs {
     padding: 4rem;
-    background: #9e9898;
-    color: white;
+    background: #646464;
+    background-image: url('../images/color_bubbles.png');
     border-top: 2px solid black;
     border-bottom: 2px solid black;
+    color: black;
+
   }
 
   h1 {
@@ -31,22 +40,47 @@
   }
 
   .graph__wrapper {
-    position: relative;
-    margin: 50px 0 45px;
+    display: relative;
   }
 
   .graph__items {
-    margin-bottom: 24px;
-    background-color: bisque;
+    background-color: rgb(255, 195, 121);
     border: 2px solid black;
     padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    
   }
 
   .chart__item {
-    display: flex;
-    flex: 1;
-    margin: 0 1rem;
-    border-radius: 10px;
+    display: absolute;
+    margin: 0 1.1rem;
+    border-radius: 2px;
+    border: 4px solid #4a03a8;
+    background-color: #dfdddd;
+    right: 0;
+    padding: 2px;
+    max-width: 320px;
+    transition: all 0.2s linear;
+  }
+
+  .chart__item:hover {
+    transform: scale(1.1);
+  }
+
+  .chart__scale {
+    display: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    background-color: #4a03a8;
+    color: #dfdddd;
+    border: 2px solid black;
   }
 
   @media only screen and (min-width: 1024px) {
