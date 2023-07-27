@@ -175,6 +175,9 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
                           // label: mqttTopic,
                           label: mqttTopic === 'co2' ? "CO2 (ppm)" : mqttTopic === 'temp' ? "Temperature (C°)" : mqttTopic === 'hum' ? "Humidity (%)" : mqttTopic === 'light' ? "Light (lux)" : undefined,
                           data: values,
+                          backgroundColor: '#0c7021',
+                          borderColor: '#0c7021',
+                          borderWidth: 1,
                       }
                   ]
               });
@@ -252,6 +255,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
             </div>
             <label>
                 <input
+                    className='outlier__box'
                     type="checkbox"
                     checked={includeOutliers}
                     onChange={handleCheckboxChange}

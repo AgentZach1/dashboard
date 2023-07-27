@@ -5,9 +5,9 @@ import Graphs from '../Graphs';
 export default function Services() {
     return (
         <>
-        <div className="services">
+        {/* <div className="services">
             <h1 className='services-text'>SERVICES</h1>
-        </div>
+        </div> */}
         <Graphs />
         
         </>
