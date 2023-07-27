@@ -39,7 +39,7 @@
     margin: 0 auto;
   }
 
-  .graph__wrapper {
+  .graph__wrapper, .stat__wrapper {
     display: relative;
   }
 
@@ -52,7 +52,6 @@
     align-items: center;
     justify-content: center;
     flex: 1;
-    
   }
 
   .chart__item {
@@ -93,4 +92,21 @@
     .graph__item {
       margin-bottom: 2rem;
     }
+  }
+
+  .stat__items {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
+
+  .stat_box {
+    margin: 5px;
+    border: 2px black solid;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    justify-content: center;
   }
