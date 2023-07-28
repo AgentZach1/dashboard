@@ -3,6 +3,9 @@ import './Graph.css';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import {Chart, CategoryScale} from 'chart.js/auto'; 
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
+
 
 const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttTopic }) => {
     let ChartComponent;
@@ -34,7 +37,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
     }
 
     // States
-    let [scale, setScale] = useState(1);
+    let [scale, setScale] = useState(5);
     let [fetchedData, setFetchedData] = useState(chartCheck);
     let [operation, setOperation] = useState("1");
     let [operationValue, setOperationValue] = useState("");
@@ -55,7 +58,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
     }
 
     if (scaleLevel <= 0 || scaleLevel > 5) {
-        scale = 1;
+        scale = 5;
     }
     
     const handleScaleChange = (event) => {
@@ -123,6 +126,57 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
       const numbers = includeOutliers ? array : removeOutliers(array);
       return Math.min(...numbers);
     };
+
+    const convertArrayOfObjectsToCSV = (array) => {
+      let result;
+  
+      const columnDelimiter = ',';
+      const lineDelimiter = '\n';
+      const keys = Object.keys(array[0]);
+  
+      result = '';
+      result += keys.join(columnDelimiter);
+      result += lineDelimiter;
+  
+      array.forEach(item => {
+          let ctr = 0;
+          keys.forEach(key => {
+              if (ctr > 0) result += columnDelimiter;
+  
+              result += item[key];
+  
+              ctr++;
+          });
+          result += lineDelimiter;
+      });
+  
+      return result;
+    }
+  
+    const downloadCSV = (array) => {
+      const link = document.createElement('a');
+      let csv = convertArrayOfObjectsToCSV(array);
+      if (csv == null) return;
+  
+      const blob = new Blob([csv]);
+      const url = window.URL.createObjectURL(blob);
+  
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'export.csv');
+      link.style.visibility = 'hidden';
+  
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  
+    const handleDownload = () => {
+      const data = fetchedData.datasets[0].data.map((value, index) => ({
+        label: fetchedData.labels[index],
+        value
+      }));
+      downloadCSV(data);
+    }
 
     // IF MQTT topic is set then check the associated database value
     // Set the graph's "data" to the specific type and time_stamp or date
@@ -199,10 +253,10 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
           y: {
             beginAtZero: true,
             grid: {
-              color: chartColor,
+              color: chartColor === null ? 'black' : undefined,
             },
             ticks: {
-              color: chartColor,
+              color: chartColor === null ? 'black' : undefined,
             },
             // check for 'co2' topic and set bounds accordingly
             min: mqttTopic === 'co2' || mqttTopic === 'temp' ? 0 : mqttTopic === 'hum' ? 0 : mqttTopic === 'light' ? 0 : undefined,
@@ -211,10 +265,10 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
           x: {
             display: false,
             grid: {
-                color: chartColor,
+                color: chartColor === null ? 'black' : undefined,
               },
               ticks: {
-                color: chartColor,
+                color: chartColor === null ? 'black' : undefined,
               },
           },
         },
@@ -222,11 +276,11 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
           title: {
             display: false,
             text: chartTitle,
-            color: chartColor,
+            color: chartColor === null ? 'black' : undefined,
           },
           legend: {
             labels: {
-              color: chartColor,
+              color: chartColor === null ? 'black' : undefined,
             },
           },
         },
@@ -235,15 +289,17 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
     return (
         <div className="chart__item">
             <ChartComponent data={fetchedData} options={options} />
-            Select Scale
-            <select className="chart__scale" value={scale} onChange={handleScaleChange}>
-                <option value={1}>1/5</option>
-                <option value={2}>2/5</option>
-                <option value={3}>3/5</option>
-                <option value={4}>4/5</option>
-                <option value={5}>5/5</option>
-            </select>
-            <select className="chart__scale" value={operation} onChange={handleOperationChange}>
+            <div className='scale__section'>
+              Select Scale
+              <select className="chart__scale" value={scale} onChange={handleScaleChange}>
+                  <option value={1}>1/5</option>
+                  <option value={2}>2/5</option>
+                  <option value={3}>3/5</option>
+                  <option value={4}>4/5</option>
+                  <option value={5}>5/5</option>
+              </select>
+            </div>
+            <select className="chart__operation" value={operation} onChange={handleOperationChange}>
                 <option value={1}>Mean</option>
                 <option value={2}>Median</option>
                 <option value={3}>Mode</option>
@@ -253,15 +309,18 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
             <div className="chart__operation-value">
               {operationValue}
             </div>
-            <label>
+            <label className='outlier__label'>
+              Include Outliers
                 <input
                     className='outlier__box'
                     type="checkbox"
                     checked={includeOutliers}
                     onChange={handleCheckboxChange}
                 />
-                Include Outliers
             </label>
+            <button className='download__button' onClick={handleDownload}>
+              <FontAwesomeIcon icon={faDownload} />
+            </button>
         </div>
     );
 };

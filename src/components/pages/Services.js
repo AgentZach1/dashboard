@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import Graphs from '../Graphs';
+import Dashboard from '../Dashboard';
 
 export default function Services() {
     return (
@@ -8,7 +9,8 @@ export default function Services() {
         {/* <div className="services">
             <h1 className='services-text'>SERVICES</h1>
         </div> */}
-        <Graphs />
+        <Dashboard />
+        {/* <Graphs /> */}
         
         </>
         

@@ -7,6 +7,8 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
+const tableName = "readings_tent";
+
 // Enable CORS
 app.use(cors());
 
@@ -30,13 +32,13 @@ app.get('/api/data', (req, res) => {
 
     // Assign the query based on the mqttTopic
     if (topic == 'co2') {
-        query = 'SELECT date, carbon_dioxide AS value FROM readings_full';
+        query = 'SELECT date, carbon_dioxide AS value FROM ' + tableName;
     } else if (topic == 'temp') {
-        query = 'SELECT date, temperature AS value FROM readings_full';
+        query = 'SELECT date, temperature AS value FROM ' + tableName;
     } else if (topic == 'hum') {
-        query = 'SELECT date, humidity AS value FROM readings_full';
+        query = 'SELECT date, humidity AS value FROM ' + tableName;
     } else if (topic == 'light') {
-        query = 'SELECT date, light AS value FROM readings_full';
+        query = 'SELECT date, light AS value FROM ' + tableName;
     } else {
         res.status(400).json({ error: 'Invalid topic' });
         return;

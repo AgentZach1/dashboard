@@ -13,9 +13,11 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+tableName = "readings_tent"
+
 # Create table if it doesn't exist
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS readings_full (
+CREATE TABLE IF NOT EXISTS """ + tableName + """ (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date DATETIME,
     carbon_dioxide INT,
@@ -55,12 +57,12 @@ def on_message(client, userdata, msg):
     
     # Check if we have all readings, and if so, insert into database
     if set(['co2', 'temp', 'time_stamp']).issubset(latest_readings) and just_sent > 2:
-        query = "INSERT INTO readings_full (date, carbon_dioxide, temperature, humidity, light, time_stamp) VALUES (%s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO " + tableName + " (date, carbon_dioxide, temperature, humidity, light, time_stamp) VALUES (%s, %s, %s, %s, %s, %s)"
         values = (datetime.now(), latest_readings['co2'], latest_readings['temp'], 50, 20000, latest_readings['time_stamp'])
         cursor.execute(query, values)
         db.commit()
         just_sent = 0
-        print("Just sent a new set of values to readings_full")
+        print("Just sent a new set of values to " + tableName)
 
 
 client = mqtt.Client()
