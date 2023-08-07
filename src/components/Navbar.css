@@ -1,3 +1,14 @@
+:root {
+  --primary: #646464;
+  --secondary: black;
+  --tertiary: #0c7021;
+  --tertiaryTwo: #074214;
+  --graphAccent: #747474;
+  --graphAccentText: #f8f8f8;
+  --graphGradient: linear-gradient(0deg, #d6d5d5 10%, var(--graphAccentText) 50%);
+  --controlButton: linear-gradient(0deg, var(--graphAccent) 10%, var(--tertiaryTwo) 50%);
+}
+
 .navbar {
     background: url("../images/Horn.png");
     height: 80px;
@@ -9,6 +20,7 @@
     top: 0;
     z-index: 999;
     transition: transform 0.1s;
+    width: 100%;
   }
   
 .navbar-hide {
@@ -22,18 +34,19 @@
     justify-content: right;
     align-items: center;
     height: 80px;
-    max-width: 1500px;
+    width: 100%;
   }
   
   .navbar-text {
     color: black;
-    justify-self: start;
+    justify-content: left;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
-    align-items: left;
-
+    flex-direction: row;
+    position: absolute;
+    left: 10vh;
   }
 
   .navbar-logo {
@@ -43,7 +56,9 @@
     text-decoration: none;
     font-size: 2rem;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
   }
   
   .fa-typo3 {
@@ -60,25 +75,40 @@
     width: 60vw;
     /* Important for the menu bar's orientation */
     justify-content: end;
-    margin-right: 2rem;
+    margin-right: 0rem;
   }
   
   .nav-item {
-    height: 80px;
+    /* height: 80px; */
+    background: linear-gradient(0deg, var(--graphAccent) 10%, var(--tertiaryTwo) 50%);
+    width: 20%;
+    height: 20%;
+    position: block;
+    border-radius: 2px;
+    border: 6px var(--secondary) solid;
+    
+    color: var(--graphAccentText);
+    font-size: large;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    flex-flow: row;
   }
   
   .nav-links {
-    color: black;
-    display: flex;
-    align-items: center;
+    color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    height: 100%;
+    background: var(--controlButton);
+    border: 3px var(--secondary) solid;
   }
   
   .nav-links:hover {
     border-bottom: 4px solid black;
     transition: all 0.2s ease-out;
+    background: var(--tertiary);
+    color: #d3bc72;
   }
   
   .fa-bars {
@@ -121,6 +151,10 @@
   }
 
   @media screen and (max-width: 960px) {
+    .navbar-text, .navbar-logo {
+      display: none;
+    }
+    
     .NavbarItems {
       position: relative;
     }
@@ -129,12 +163,13 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 100vh;
+      height: 90vh;
       position: absolute;
       top: 80px;
       left: -100%;
       opacity: 1;
       transition: all 0.5s ease;
+      justify-content: start;
     }
   
     .nav-menu.active {
@@ -143,18 +178,29 @@
       opacity: 1;
       transition: all 0.5s ease;
       z-index: 1;
-      justify-content: normal;
     }
-  
+    
+    .nav-item {
+      /* height: 80px; */
+      background: linear-gradient(0deg, var(--graphAccent) 10%, var(--tertiaryTwo) 50%);
+      width: 40%;
+      height: 20%;
+      border: none;
+      top: 0;
+    }
+
     .nav-links {
       text-align: center;
-      padding: 2rem;
+      justify-self: center;
       width: 100%;
-      display: table;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
     }
   
     .nav-links:hover {
-      background-color: black;
+      background: var(--tertiary);
       color: #d3bc72;
       border-radius: 0;
     }
@@ -205,7 +251,7 @@
     }
   
     .nav-links-mobile:hover {
-      background: black;
+      background: white;
       color: #242424;
       transition: 250ms;
     }

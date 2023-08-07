@@ -32,7 +32,7 @@ function Navbar() {
 
   window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.pageYOffset > window.innerHeight * 0.050) {
+    if (window.pageYOffset > window.innerHeight * 0.3) {
         navbar.classList.add('navbar-hide');
     } else {
         navbar.classList.remove('navbar-hide');
@@ -70,9 +70,9 @@ function Navbar() {
                         </Link>
                     </li>
                 </ul>
-                {button && <Button buttonStyle='btn--outline' toGo='/dashboard/'><Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
+                {/* {button && <Button buttonStyle='btn--outline' toGo='/dashboard/'><Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
                             Home
-                        </Link></Button>}
+                        </Link></Button>} */}
             </div>
         </nav>
     </>
