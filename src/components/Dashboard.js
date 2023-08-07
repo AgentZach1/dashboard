@@ -31,16 +31,16 @@ function Dashboard() {
         </div> */}
         <div className='graph__section'>
           <div className='graph__two'>
-            <Graph mqttTopic={mqttTopics[1]} chartType='line' />
+            <Graph mqttTopic={mqttTopics[1]} chartType='line' className={null} />
           </div>
           <div className='graph__three'>
-            <Graph mqttTopic={mqttTopics[2]} chartType='line' />
+            <Graph mqttTopic={mqttTopics[2]} chartType='line' className={null}/>
           </div>
           <div className='graph__four'>
-            <Graph mqttTopic={mqttTopics[3]} chartType='line' />
+            <Graph mqttTopic={mqttTopics[3]} chartType='line' className={null}/>
           </div>
           <div className='graph__one'>
-            <Graph mqttTopic={mqttTopics[0]} chartType='line'/>
+            <Graph mqttTopic={mqttTopics[0]} chartType='line' className={'main'}/>
           </div>
           <div className='stat__section'>
             <ul className='stat__items__top'>

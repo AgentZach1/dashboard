@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 
-const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttTopic }) => {
+const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttTopic, className }) => {
     let ChartComponent;
     let chartCheck;
     if (chartData == null) {
@@ -220,10 +220,28 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
                 default:
                   setOperationValue("");
               }
+              // Parse and filter the dates
+              const labels = dates.map(date => {
+                // Parse the date string into a Date object
+                const parsedDate = new Date(date);
 
+                // Get the hour from the Date object
+                const hour = parsedDate.getUTCHours(); // Use getUTCHours to account for the "Z" timezone
+                const timeString = parsedDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', day: '2-digit' });
+
+                // Return the time string if the hour is 0 (12 AM), 4, 8, etc. Otherwise, return an empty string.
+                if (hour % 2 === 0) {
+                  return timeString;
+                }
+                else {
+                  return "";
+                }
+                
+            });
+              console.log(labels);
               console.log("Setting fetched data");
               setFetchedData({
-                  labels: dates,
+                  labels: labels,
                   datasets: [
                       {
                           // label: mqttTopic,
@@ -263,12 +281,13 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
             max: mqttTopic === 'co2' ? 1200 : mqttTopic === 'temp' ? 40 : mqttTopic === 'hum' ? 100 : mqttTopic === 'light' ? 30000 : undefined,
           },
           x: {
-            display: false,
+            display: className === null ? false : true,
             grid: {
                 color: chartColor === null ? 'black' : undefined,
               },
               ticks: {
                 color: chartColor === null ? 'black' : undefined,
+                stepSize: 1,
               },
           },
         },
