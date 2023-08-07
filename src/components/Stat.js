@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Graph.css';
 import axios from 'axios';
 
-const Stat = ({mqttTopic}) => {
+const Stat = ({mqttTopic, onClick}) => {
 
     let [statState, setStatState] = useState(0);
     let [text, setText] = useState("<Value/>");
@@ -10,7 +10,7 @@ const Stat = ({mqttTopic}) => {
     useEffect(() => {
         const fetchData = () => {
             if (mqttTopic) {
-                axios.get("/api/data", {
+                axios.get("https://connect.weiss.land/api/data", {
                     params: {
                         topic: mqttTopic
                     }
@@ -34,7 +34,7 @@ const Stat = ({mqttTopic}) => {
     }, [mqttTopic]);
     
     return (
-        <div className='stat_box'>
+        <div className='stat_box' onClick={onClick}>
             {statState}
             <br></br>
             {text}

@@ -6,10 +6,10 @@ import Dashboard from '../Dashboard';
 export default function Services() {
     return (
         <>
-        {/* <div className="services">
-            <h1 className='services-text'>SERVICES</h1>
-        </div> */}
-        <Dashboard />
+        <div className="services">
+            <h1 className='services-text'>NOTES</h1>
+        </div>
+        
         {/* <Graphs /> */}
         
         </>

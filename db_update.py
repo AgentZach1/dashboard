@@ -1,14 +1,17 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 from datetime import datetime
+from dotenv import load_dotenv 
+import os
 
+load_dotenv()
 
 # Setup database connection
 db = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="pund71&Yed1",
-  database="monitor_base"
+  host=os.getenv("DB_HOST"),
+  user=os.getenv("DB_USER"),
+  password=os.getenv("DB_PASSWORD"),
+  database=os.getenv("DB_DATABASE")
 )
 
 cursor = db.cursor()
@@ -70,5 +73,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # Connect to MQTT broker
-client.connect("localhost", 1883, 60)
+mqtt_ip = os.getenv("DB_HOST")
+client.connect(mqtt_ip if mqtt_ip else "localhost", 1883, 60)
 client.loop_forever()

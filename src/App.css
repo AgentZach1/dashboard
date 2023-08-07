@@ -8,27 +8,25 @@
 
   .home,
   .services,
-  .playground,
+  .chat,
   .sign-up,
-  .protected {
+  .protected,
+  .dashboard {
     display: flex;
-    height: 90vh;
     align-items: center;
     justify-content: center;
     background-position: center;
     background-size: contain;
     background-repeat: repeat;
-    color: #fff;
-    font-size: 100px;
+    color: #505050;
   }
   
   .services {
-    background-image: url('./images/arabic-wallpaper.png');
-    font-size: 50px;
+    /* background-image: url('./images/arabic-wallpaper.png'); */
   }
 
-  .playground {
-    background-image: url('./images/ZachHeadshot.jpg');
+  .chat {
+    /* background-image: url('./images/ZachHeadshot.jpg'); */
     
   }
    

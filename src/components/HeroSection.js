@@ -9,14 +9,14 @@ function HeroSection() {
   return (
     <div className='hero-container'>
         {/* <video src={backVideo} autoPlay loop muted /> */}
-        <h1>Adventure Awaits</h1>
-        <p>What are you waiting for</p>
+        <h1>What's up cutie?</h1>
+        <p>Project Website</p>
         <div className="hero-btns">
             <Button className='btns' buttonStyle='btn--outline' buttonSize='btn--large' toGo='/dashboard/sign-up'>
-                GET STARTED
+                Sign up?
             </Button>
             <Button className='btns' buttonStyle='btn--primary' buttonSize='btn--large' toGo='/dashboard/sign-up'>
-                WATCH TRAILER <FontAwesomeIcon icon={faPlayCircle}/>
+                L
             </Button>
         </div>
     </div>

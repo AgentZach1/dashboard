@@ -32,7 +32,7 @@ function Navbar() {
 
   window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.pageYOffset > window.innerHeight * 0.30) {
+    if (window.pageYOffset > window.innerHeight * 0.050) {
         navbar.classList.add('navbar-hide');
     } else {
         navbar.classList.remove('navbar-hide');
@@ -56,26 +56,23 @@ function Navbar() {
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
                         <Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
-                            Home
+                            Monitor
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/dashboard/services' className='nav-links' onClick={closeMobileMenu}>
-                            Services
+                        <Link to='/dashboard/notes' className='nav-links' onClick={closeMobileMenu}>
+                            Notes
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/dashboard/playground' className='nav-links' onClick={closeMobileMenu}>
-                            Playground
-                        </Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to='/dashboard/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
-                            Sign Up
+                        <Link to='/dashboard/chat' className='nav-links' onClick={closeMobileMenu}>
+                            Chat
                         </Link>
                     </li>
                 </ul>
-                {button && <Button buttonStyle='btn--outline' toGo='/dashboard/sign-up'>Sign Up</Button>}
+                {button && <Button buttonStyle='btn--outline' toGo='/dashboard/'><Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
+                            Home
+                        </Link></Button>}
             </div>
         </nav>
     </>

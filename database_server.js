@@ -3,14 +3,21 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const https = require('https');
+const fs = require('fs');
 
 const app = express();
 const port = 5000;
 
 const tableName = "readings_tent";
 
+const corsOptions = {
+    origin: ['https://connect.weiss.land', 'http://localhost:3000'],
+    optionsSuccessStatus: 200
+}
+
 // Enable CORS
-app.use(cors());
+app.use(cors(corsOptions));
 
 // MySQL Connection
 const db = mysql.createConnection({
@@ -52,6 +59,9 @@ app.get('/api/data', (req, res) => {
 });
 
 // Start the server
+// https.createServer(options, app).listen(5000, () => {
+//     console.log(`Server running on port 5000`);
+//   });
 app.listen(port, () => {
 console.log(`Server running on port ${port}`);
 });

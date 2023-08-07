@@ -7,5 +7,4 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /dashboard/index.html [L]
-
 </IfModule>

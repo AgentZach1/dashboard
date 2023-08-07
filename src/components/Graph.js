@@ -183,7 +183,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
     useEffect(() => {
       const fetchData = () => {
       if (mqttTopic) {
-          axios.get("/api/data", {
+          axios.get("https://connect.weiss.land/api/data", {
               params: {
                   topic: mqttTopic
               }

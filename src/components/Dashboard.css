@@ -6,6 +6,7 @@
     --graphAccent: #747474;
     --graphAccentText: #f8f8f8;
     --graphGradient: linear-gradient(0deg, #d6d5d5 10%, var(--graphAccentText) 50%);
+    --controlButton: linear-gradient(0deg, var(--graphAccent) 10%, var(--tertiaryTwo) 50%);
 }
 
 * {
@@ -17,7 +18,7 @@ font-family: 'PT Sans', sans-serif;
 
 .dashboard {
     background: var(--primary);
-    height: 40rem;
+    height: 90vh;
     position: relative;
 }
 
@@ -44,13 +45,24 @@ font-family: 'PT Sans', sans-serif;
     height: 10%;
     position: absolute;
     top: 0;
-    background: var(--tertiaryTwo);
+    background: var(--secondary);
     border: 2px solid var(--secondary);
+}
+
+.control__button {
+    width: 33.3%;
+    height: 100%;
+    position: block;
+    border-radius: 0;
+    border: 2px var(--secondary) solid;
+    background: var(--controlButton);
+    color: var(--graphAccentText);
+    font-size: large;
 }
 
 .graph__section {
     width: 100%;
-    height: 90%;
+    height: 100%;
     position: absolute;
     bottom: 0;
     border-top: 2px solid var(--secondary);
@@ -102,6 +114,8 @@ font-family: 'PT Sans', sans-serif;
     position: absolute;
     top: 31%;
     left: 2%;
+    display: flex;
+    flex-flow: row;
 }
 
 .graph__one > .chart__item {
@@ -138,7 +152,7 @@ font-family: 'PT Sans', sans-serif;
     position: absolute;
     top: 16%;
     right: -25%;
-    color: var(--secondary);
+    color: var(--graphAccentText);
     border: 2px solid var(--secondary);
     padding: 2px;
 }
@@ -151,7 +165,6 @@ font-family: 'PT Sans', sans-serif;
     padding: 2px;
     color: var(--graphAccentText);
     border: 2px solid var(--secondary);
-
 }
 
 .download__button {
@@ -217,4 +230,105 @@ font-family: 'PT Sans', sans-serif;
 
 .stat_box:hover {
     background: rgba(24, 24, 24, 0.8);
+}
+
+@media screen and (max-width: 1200px) {
+    .left__separator {
+        display: none;
+        position: absolute;
+        width: 0%;
+    }
+    
+    .right__separator {
+        position: absolute;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1015px) {
+    .graph__one > .chart__item > .outlier__label, .graph__one > .chart__item > .chart__operation-value, .graph__one > .chart__item > .chart__operation, .graph__one > .chart__item > .scale__section > .chart__scale, .graph__one > .chart__item > .scale__section {
+        display: none;
+    }
+
+    .graph__one > .chart__item {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .graph__four, .graph__three, .graph__two {
+        display: none
+    }
+
+    .stat__section {
+        position: absolute;
+        top: 0;
+        width: 90%;
+        height: 45%;
+        right: 5%;
+        left: 5%;
+        align-self: center;
+
+    }
+
+    .graph__one {
+        width: 100%;
+        position: absolute;
+        height: 35%;
+        bottom: 0;
+        top: 45%;
+        left: 0;
+        align-self: center;
+    }
+
+    .graph__one > .chart__item > .scale__section {
+        display: block;
+        position: absolute;
+        width: 7rem;
+        height: 3rem;
+        bottom: -10%;
+        left: 10%;
+        right: 0%;
+        top: 110%;
+    }
+    .graph__one > .chart__item > .scale__section > .chart__scale {
+        display: block;
+    } 
+
+    .graph__one > .chart__item > .chart__operation {
+        display: block;
+        position: absolute;
+        width: 4rem;
+        height: 2rem;
+        bottom: -10%;
+        left: 40%;
+        right: 0%;
+        top: 110%;
+    } 
+    .graph__one > .chart__item > .chart__operation-value {
+        display: block;
+        position: absolute;
+        width: 8rem;
+        height: 2rem;
+        bottom: -10%;
+        left: 40%;
+        right: 0%;
+        top: 128%;
+    } 
+    
+    .graph__one > .chart__item > .outlier__label {
+        display: block;
+        position: absolute;
+        width: 9rem;
+        height: 2rem;
+        bottom: -10%;
+        left: 60%;
+        right: 30%;
+        top: 110%;
+        background-color: var(--graphAccent);
+    }   
+
+    .download__button {
+        display: block;
+    }
 }
