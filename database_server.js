@@ -8,6 +8,7 @@ const fs = require('fs');
 
 const app = express();
 const port = 5000;
+const limit = 1000;
 
 const tableName = "readings_tent";
 
@@ -27,11 +28,43 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE
 });
 
+// New MySQL Connection for Unidish
+const unidishDb = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.UNIDISH_DB_USER,
+    password: process.env.UNIDISH_DB_PASSWORD,
+    database: process.env.UNIDISH_DB_DATABASE
+});
+
 db.connect((err) => {
     if (err) throw err;
     console.log('Connected to the database');
   });
   
+// Connect to Unidish database
+unidishDb.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to the Unidish database ooooooo');
+});
+
+app.get('/api/unidish', (req, res) => {
+    console.log('Received request for /api/unidish');
+    const { table } = req.query;
+    let query = '';
+
+    if (table == 'all') {
+        query = 'SELECT * FROM COMMENT, COMMENT_DISLIKES, COMMENT_LIKES, DINING_HALL, MENU_ITEM, RESTAURANT, REVIEW, REVIEW_DISLIKES, REVIEW_LIKES, USER;'
+    }
+    else {
+        query = 'SELECT * FROM ' + table + ';';
+    }
+
+    unidishDb.query(query, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    })
+});
+
 // Define the endpoint
 app.get('/api/data', (req, res) => {
     const { topic } = req.query;
@@ -39,13 +72,13 @@ app.get('/api/data', (req, res) => {
 
     // Assign the query based on the mqttTopic
     if (topic == 'co2') {
-        query = 'SELECT date, carbon_dioxide AS value FROM ' + tableName;
+        query = 'SELECT * FROM (SELECT id, date, carbon_dioxide AS value FROM ' + tableName + ' order by id desc LIMIT ' + limit + ') AS subquery ORDER BY subquery.id ASC';
     } else if (topic == 'temp') {
-        query = 'SELECT date, temperature AS value FROM ' + tableName;
+        query = 'SELECT * FROM (SELECT id, date, temperature AS value FROM ' + tableName + ' order by id desc LIMIT ' + limit + ') AS subquery ORDER BY subquery.id ASC';
     } else if (topic == 'hum') {
-        query = 'SELECT date, humidity AS value FROM ' + tableName;
+        query = 'SELECT * FROM (SELECT id, date, humidity AS value FROM ' + tableName + ' order by id desc LIMIT ' + limit + ') AS subquery ORDER BY subquery.id ASC';
     } else if (topic == 'light') {
-        query = 'SELECT date, light AS value FROM ' + tableName;
+        query = 'SELECT * FROM (SELECT id, date, light AS value FROM ' + tableName + ' order by id desc LIMIT ' + limit + ') AS subquery ORDER BY subquery.id ASC';
     } else {
         res.status(400).json({ error: 'Invalid topic' });
         return;
@@ -58,10 +91,9 @@ app.get('/api/data', (req, res) => {
     });
 });
 
-// Start the server
-// https.createServer(options, app).listen(5000, () => {
-//     console.log(`Server running on port 5000`);
-//   });
+
+
+
 app.listen(port, () => {
 console.log(`Server running on port ${port}`);
 });

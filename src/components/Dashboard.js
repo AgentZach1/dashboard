@@ -1,13 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Graph from './Graph';
 import Stat from './Stat';
 import './Graph.css';
 import './Dashboard.css';
+import axios from 'axios';
 
-function Dashboard() {
+function Dashboard({sections}){
 
   const initialTopics = ['co2', 'temp', 'hum', 'light'];
   const [mqttTopics, setMqttTopics] = useState(initialTopics);
+  const [sectionAMT, setSectionAMT] = useState(1);
+  const [fetchedData, setFetchedData] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let tempData = {};
+  //     try {
+  //       for (const topic of mqttTopics) {
+  //         const response = await axios.get("https://connect.weiss.land/api/data", {
+  //           params: { topic }
+  //         });
+  //         tempData[topic] = response.data;
+  //       }
+  //       console.log("Setting data");
+  //       setFetchedData(tempData);
+  //     } catch (error) {
+  //       console.log("There was a problem fetching data");
+  //     }
+  //   };
+  //   const intervalId = setInterval(fetchData, 45000);
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  useEffect(() => {
+    if (Number(sections) <= 2 && Number(sections) > 0) {
+      setSectionAMT(sections);
+    }
+  }, [sections]);
+  
 
   const rotateGraphs = (selectedTopic) => {
     let newTopics = [...mqttTopics];
@@ -18,11 +48,12 @@ function Dashboard() {
     setMqttTopics(newTopics);
   };
 
-  return (
-    <div className='dashboard'>
-      <div className='left__separator'>
+  function LeftSeparator() {
+    return (<div className='left__separator'> </div>)
+  };
 
-      </div>
+  function RightSeparator() {
+    return ( 
       <div className='right__separator'>
         {/* <div className='control__section'>
             <button className='control__button'>Notes</button>
@@ -30,7 +61,7 @@ function Dashboard() {
             <button className='control__button'>Chat</button>
         </div> */}
         <div className='graph__section'>
-          <div className='graph__two'>
+        <div className='graph__two'>
             <Graph mqttTopic={mqttTopics[1]} chartType='line' className={null} />
           </div>
           <div className='graph__three'>
@@ -43,17 +74,40 @@ function Dashboard() {
             <Graph mqttTopic={mqttTopics[0]} chartType='line' className={'main'}/>
           </div>
           <div className='stat__section'>
-            <ul className='stat__items__top'>
+          <ul className='stat__items__top'>
               <Stat mqttTopic="co2" onClick={() => rotateGraphs(initialTopics[0])}/>
               <Stat mqttTopic="temp" onClick={() => rotateGraphs(initialTopics[1])}/>
             </ul>
             <ul className='stat__items__bottom'>
               <Stat mqttTopic="hum" onClick={() => rotateGraphs(initialTopics[2])}/>
               <Stat mqttTopic="light" onClick={() => rotateGraphs(initialTopics[3])}/>
-            </ul>
+          </ul>
           </div>
         </div>
       </div>
+    ) 
+  };
+
+  function setSections() {
+    if (sectionAMT === 2) {
+      // return {LeftSeparator};{RightSeparator};
+      return (
+        <>
+        <LeftSeparator />
+        <RightSeparator />
+        </>
+      )
+    }
+    else if (sectionAMT === 1) {
+      return (
+        <RightSeparator />
+      )
+    }
+  };
+
+  return (
+    <div className='dashboard'>
+      <RightSeparator />
     </div>
   )
 }

@@ -74,6 +74,10 @@ h1 {
   /* transition: all 0.2s linear; */
 }
 
+.chart__graph {
+  align-self: center;
+}
+
 /* .chart__item:hover {
   transform: scale(1.1);
 } */

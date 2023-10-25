@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './Graph.css';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import {Chart, CategoryScale} from 'chart.js/auto'; 
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'; 
 
 
 const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttTopic, className }) => {
@@ -56,77 +56,16 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
         default:
             ChartComponent = Line;
     }
-
-    if (scaleLevel <= 0 || scaleLevel > 5) {
-        scale = 5;
-    }
     
     const handleScaleChange = (event) => {
         setScale(event.target.value);
     }
-
     const handleOperationChange = (event) => {
       setOperation(event.target.value);
     }
-
-    // Handle checkbox change
     const handleCheckboxChange = () => {
       setIncludeOutliers(!includeOutliers);
     }
-    
-    const getQ1 = (array) => {
-      const mid = Math.floor(array.length / 4);
-      const nums = [...array].sort((a, b) => a - b);
-      return array.length % 4 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-    };
-    
-    const getQ3 = (array) => {
-      const mid = Math.floor(3 * array.length / 4);
-      const nums = [...array].sort((a, b) => a - b);
-      return array.length % 4 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-    };
-    
-    const removeOutliers = (array) => {
-      const Q1 = getQ1(array);
-      const Q3 = getQ3(array);
-      const IQR = Q3 - Q1;
-      const lowerRange = Q1 - 1.5 * IQR;
-      const upperRange = Q3 + 1.5 * IQR;
-      return array.filter((x) => (x >= lowerRange) && (x <= upperRange));
-    };
-    
-    const mean = array => {
-      const numbers = includeOutliers ? array : removeOutliers(array);
-      return numbers.reduce((a, b) => a + b) / numbers.length;
-    };
-    
-    const median = array => {
-      const numbers = includeOutliers ? array : removeOutliers(array);
-      const mid = Math.floor(numbers.length / 2);
-      const nums = [...numbers].sort((a, b) => a - b);
-      return numbers.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-    };
-    
-    const mode = array => {
-      const numbers = includeOutliers ? array : removeOutliers(array);
-      return Object.entries(
-        numbers.reduce(
-          (counts, value) => ({ ...counts, [value]: (counts[value] || 0) + 1 }),
-          {}
-        )
-      ).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
-    };
-    
-    const max = array => {
-      const numbers = includeOutliers ? array : removeOutliers(array);
-      return Math.max(...numbers);
-    };
-    
-    const min = array => {
-      const numbers = includeOutliers ? array : removeOutliers(array);
-      return Math.min(...numbers);
-    };
-
     const convertArrayOfObjectsToCSV = (array) => {
       let result;
   
@@ -152,7 +91,6 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
   
       return result;
     }
-  
     const downloadCSV = (array) => {
       const link = document.createElement('a');
       let csv = convertArrayOfObjectsToCSV(array);
@@ -169,7 +107,6 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
       link.click();
       document.body.removeChild(link);
     }
-  
     const handleDownload = () => {
       const data = fetchedData.datasets[0].data.map((value, index) => ({
         label: fetchedData.labels[index],
@@ -177,12 +114,59 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
       }));
       downloadCSV(data);
     }
+    const getQ1 = (array) => {
+      const mid = Math.floor(array.length / 4);
+      const nums = [...array].sort((a, b) => a - b);
+      return array.length % 4 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+    };
+    const getQ3 = (array) => {
+      const mid = Math.floor(3 * array.length / 4);
+      const nums = [...array].sort((a, b) => a - b);
+      return array.length % 4 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+    };
+    const removeOutliers = (array) => {
+      const Q1 = getQ1(array);
+      const Q3 = getQ3(array);
+      const IQR = Q3 - Q1;
+      const lowerRange = Q1 - 1.5 * IQR;
+      const upperRange = Q3 + 1.5 * IQR;
+      return array.filter((x) => (x >= lowerRange) && (x <= upperRange));
+    };
+    const mean = array => {
+      const numbers = includeOutliers ? array : removeOutliers(array);
+      return numbers.reduce((a, b) => a + b) / numbers.length;
+    };
+    const median = array => {
+      const numbers = includeOutliers ? array : removeOutliers(array);
+      const mid = Math.floor(numbers.length / 2);
+      const nums = [...numbers].sort((a, b) => a - b);
+      return numbers.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+    };
+    const mode = array => {
+      const numbers = includeOutliers ? array : removeOutliers(array);
+      return Object.entries(
+        numbers.reduce(
+          (counts, value) => ({ ...counts, [value]: (counts[value] || 0) + 1 }),
+          {}
+        )
+      ).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
+    };
+    const max = array => {
+      const numbers = includeOutliers ? array : removeOutliers(array);
+      return Math.max(...numbers);
+    };
+    const min = array => {
+      const numbers = includeOutliers ? array : removeOutliers(array);
+      return Math.min(...numbers);
+    };
+
 
     // IF MQTT topic is set then check the associated database value
     // Set the graph's "data" to the specific type and time_stamp or date
     useEffect(() => {
       const fetchData = () => {
       if (mqttTopic) {
+        console.log(mqttTopic);
           axios.get("https://connect.weiss.land/api/data", {
               params: {
                   topic: mqttTopic
@@ -267,6 +251,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
 
     const options = {
         responsive: true,
+        maintainAspectRatio: true,
         scales: {
           y: {
             beginAtZero: true,
@@ -278,7 +263,7 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
             },
             // check for 'co2' topic and set bounds accordingly
             min: mqttTopic === 'co2' || mqttTopic === 'temp' ? 0 : mqttTopic === 'hum' ? 0 : mqttTopic === 'light' ? 0 : undefined,
-            max: mqttTopic === 'co2' ? 1200 : mqttTopic === 'temp' ? 40 : mqttTopic === 'hum' ? 100 : mqttTopic === 'light' ? 30000 : undefined,
+            max: mqttTopic === 'co2' ? 1500 : mqttTopic === 'temp' ? 40 : mqttTopic === 'hum' ? 100 : mqttTopic === 'light' ? 30000 : undefined,
           },
           x: {
             display: className === null ? false : true,
@@ -304,10 +289,10 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
           },
         },
       };
-
-    return (
+//<ChartComponent className='chart__graph' data={fetchedData} options={options} />
+      return (
         <div className="chart__item">
-            <ChartComponent data={fetchedData} options={options} />
+            <ChartComponent className='chart__graph' data={fetchedData} options={options} />
             <div className='scale__section'>
               Select Scale
               <select className="chart__scale" value={scale} onChange={handleScaleChange}>
@@ -342,6 +327,11 @@ const Graph = ({ chartData, chartType, scaleLevel, chartTitle, chartColor, mqttT
             </button>
         </div>
     );
+      // if (!fetchedData) {
+      //   return <p>Loading...</p>
+      // } else {
+        
+      // }
 };
 
 Chart.register(CategoryScale);

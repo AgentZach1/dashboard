@@ -8,3 +8,10 @@
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /dashboard/index.html [L]
 </IfModule>
+
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /etc/httpd/.htpasswd
+Require valid-user
+
+DirectoryIndex index.html
