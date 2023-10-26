@@ -194,6 +194,7 @@
 
   .nav-item.active {
     opacity: 1;
+    width: 60%;
   }
 
   .nav-links {
