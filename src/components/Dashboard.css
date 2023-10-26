@@ -32,10 +32,9 @@ font-family: 'PT Sans', sans-serif;
 }
 
 .right__separator {
-    width: 80%;
+    width: 100%;
     height: inherit;
     position: absolute;
-    right: 0;
     background: var(--tertiary);
     border: 2px solid var(--secondary);
 }

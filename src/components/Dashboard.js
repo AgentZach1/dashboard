@@ -12,26 +12,6 @@ function Dashboard({sections}){
   const [sectionAMT, setSectionAMT] = useState(1);
   const [fetchedData, setFetchedData] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     let tempData = {};
-  //     try {
-  //       for (const topic of mqttTopics) {
-  //         const response = await axios.get("https://connect.weiss.land/api/data", {
-  //           params: { topic }
-  //         });
-  //         tempData[topic] = response.data;
-  //       }
-  //       console.log("Setting data");
-  //       setFetchedData(tempData);
-  //     } catch (error) {
-  //       console.log("There was a problem fetching data");
-  //     }
-  //   };
-  //   const intervalId = setInterval(fetchData, 45000);
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
   useEffect(() => {
     if (Number(sections) <= 2 && Number(sections) > 0) {
       setSectionAMT(sections);
@@ -55,11 +35,6 @@ function Dashboard({sections}){
   function RightSeparator() {
     return ( 
       <div className='right__separator'>
-        {/* <div className='control__section'>
-            <button className='control__button'>Notes</button>
-            <button className='control__button'>Monitor</button>
-            <button className='control__button'>Chat</button>
-        </div> */}
         <div className='graph__section'>
         <div className='graph__two'>
             <Graph mqttTopic={mqttTopics[1]} chartType='line' className={null} />

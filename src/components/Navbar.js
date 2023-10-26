@@ -54,25 +54,22 @@ function Navbar() {
                     <FontAwesomeIcon icon={click ? faTimes : faBars} />
                 </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                    <li className='nav-item'>
-                        <Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
+                    <li className={click ? 'nav-item active' : 'nav-item'}>
+                        <Link to='/dashboard' className={click ? 'nav-links active' : 'nav-links'} onClick={closeMobileMenu}>
                             Monitor
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/dashboard/notes' className='nav-links' onClick={closeMobileMenu}>
+                    <li className={click ? 'nav-item active' : 'nav-item'}>
+                        <Link to='/dashboard/notes' className={click ? 'nav-links active' : 'nav-links'} onClick={closeMobileMenu}>
                             Notes
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/dashboard/chat' className='nav-links' onClick={closeMobileMenu}>
+                    <li className={click ? 'nav-item active' : 'nav-item'}>
+                        <Link to='/dashboard/chat' className={click ? 'nav-links active' : 'nav-links'} onClick={closeMobileMenu}>
                             Chat
                         </Link>
                     </li>
                 </ul>
-                {/* {button && <Button buttonStyle='btn--outline' toGo='/dashboard/'><Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
-                            Home
-                        </Link></Button>} */}
             </div>
         </nav>
     </>
