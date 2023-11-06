@@ -20,9 +20,38 @@
     background-repeat: repeat;
     color: #505050;
   }
-  
+
   .services {
-    /* background-image: url('./images/arabic-wallpaper.png'); */
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    height: 90vh;
+    overflow-y: auto;
+  }
+
+  .services-text {
+
+  }
+
+  .services-text-editor {
+    width: 80vw;
+    height: 70vh;
+    background-color: darkolivegreen;
+    color: lightgray;
+    text-align: center;
+    border: 2px solid darkgray;
+  }
+
+  .services-error {
+    background-color: red;
+    color: black;
+  }
+
+  .services-save-button {
+    background-color: green;
+    color: gold;
+    width: 5vw;
+    height: 5vh;
   }
 
   .chat {
